@@ -1,37 +1,30 @@
-import { useCallback, useState } from 'react'
-import { getDogPicture } from './api/getDogPicture'
 import './App.css'
-import { Button } from './components/Button'
-import styles from './components/styles/image.module.css'
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import { DogPage } from './Pages/Dog'
+import { CatPage } from './Pages/Cats'
+import { CapybaraPage } from './Pages/Capybara';
+import { AppProvider } from './components/AppContext';
 
 function App() {
-  const [imageURL, setImageURL] = useState<string | null>(null)
-  const [error, setError] = useState<boolean>(false)
 
-  const callImage = useCallback(() => {
-    const getImage = async () => {
-      try {
-        const data = await getDogPicture()
-        if (data) {
-          setImageURL(data.url)
-        } else {
-          setError(true)
-        }
-      } catch {
-        setError(true)
-      }
-    }
-
-    getImage()
-  }, [])
 
   return (
-    <>
-      {
-        imageURL ? <img src={imageURL} className={styles.image} onClick={callImage}/> 
-        : <Button handleClick={callImage} />
-      }
-    </>
+    <AppProvider>
+      <div className='container'>
+        <Router>
+          <nav className='navigation_buttons'>
+            <NavLink className={({ isActive }) => (isActive ? "active-link" : "link")} to="/dogs">Dogs</NavLink>
+            | <NavLink className={({ isActive }) => (isActive ? "active-link" : "link")} to="/cats">Cats</NavLink>
+            | <NavLink className={({ isActive }) => (isActive ? "active-link" : "link")} to="/capybara">Capybara</NavLink>
+          </nav>
+          <Routes>
+            <Route path="/Dogs" element={<DogPage />} />
+            <Route path="/Cats" element={<CatPage />} />
+            <Route path="/Capybara" element={<CapybaraPage />} />
+          </Routes>
+        </Router>
+      </div>
+    </AppProvider>
   )
 }
 
