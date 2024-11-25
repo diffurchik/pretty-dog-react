@@ -49,6 +49,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 80vh;
   width: 80vh;
   background: rgb(210, 240, 239);

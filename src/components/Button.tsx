@@ -3,7 +3,7 @@ import styles from './styles/button.module.css'
 type ButtonProps = {
     handleClick: () => void
     isDisabled: boolean
-    animal: "Dog" | "Cat" | "Capybara"
+    animal: "Dog" | "Cat" | "Capybara" | "Fox"
 }
 
 export const Button = ({ handleClick, isDisabled, animal }: ButtonProps) => {

@@ -36,3 +36,12 @@ export type CapybaraDTO = {
 export type CapybaraPicture = {
     url: string
 }
+
+export type FoxPictureDTO = {
+     image: string, 
+     link: string
+} 
+
+export type FoxPicture = {
+    url: string
+}

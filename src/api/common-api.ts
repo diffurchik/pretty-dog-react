@@ -1,6 +1,8 @@
+import { AnimalURLs } from "./helper/urls-enum";
+
 export async function fetchPicture<T>(url: string, signal: AbortSignal, retries: number = 5, delay: number = 1000): Promise<T | T[]> {
     try {
-        const response = await fetch(url, { signal, mode: 'cors'})
+        const response = await fetch(url, { signal, mode: 'cors' })
         if (!response) {
             throw new Error()
         }
@@ -21,3 +23,12 @@ export async function fetchPicture<T>(url: string, signal: AbortSignal, retries:
         }
     }
 }
+
+export async function fetchPictureByTanStack<T>(url: AnimalURLs): Promise<T | T[]> {
+    const response = await fetch(url)
+    if (!response) {
+        throw new Error()
+    }
+    const data: T | T[] = await response.json()
+    return data
+} 

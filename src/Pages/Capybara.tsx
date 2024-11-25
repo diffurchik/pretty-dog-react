@@ -7,7 +7,7 @@ import styles from '../components/styles/image.module.css'
 export const CapybaraPage = () => {
 
     const abortSignalRef = useRef<AbortController>()
-    const { isLoading, setIsLoading, error, setError } = useAppContext()
+    const { isLoading, setIsLoading, error, setError, showedImagesTimes, setShowedImagesTimes } = useAppContext()
     const [imageURL, setImageURL] = useState<string>('')
 
     const handleClick = useCallback(() => {
@@ -21,18 +21,21 @@ export const CapybaraPage = () => {
             if (data) {
                 setImageURL(data.url);
                 setIsLoading(false)
+                setShowedImagesTimes(showedImagesTimes + 1)
             } else { setError(true) }
         }
         getImage()
-        
-    }, [])
+
+    }, [showedImagesTimes, imageURL, isLoading])
 
 
     useEffect(() => {
         return () => { abortSignalRef.current?.abort() }
     }, [])
 
-    return <>{imageURL ? (<img src={imageURL} className={styles.image} onClick={handleClick} />) 
-    : <Button handleClick={handleClick} isDisabled={isLoading} animal="Capybara" />}</>
+    return <>{imageURL ? (<img src={imageURL} className={styles.image} onClick={handleClick} />)
+        : <Button handleClick={handleClick} isDisabled={isLoading} animal="Capybara" />}
+        <div className={styles.numbers}>You've seen {showedImagesTimes} pictures</div>
+    </>
 
 }

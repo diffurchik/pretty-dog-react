@@ -8,3 +8,9 @@
     transform: scale(1.1);
     box-shadow: 0 0 50px 5px #8cb6cc;
 }
+
+.numbers {
+    padding: 10px;
+    margin: 30px;
+    font-size: large;
+}
